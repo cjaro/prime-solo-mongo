@@ -1,0 +1,64 @@
+# prime-solo-mongo
+// 0. Create a collection named joe
+db.createCollection('joe')
+
+// 1. Create a collection named orders.
+db.createCollection('orders')
+
+// 2. Insert at least 3 documents that represent an order. IMPORTANT: See section below for fields.
+
+db.getCollection('orders').insert({
+orderDate: Date('Oct 31, 1993'), 
+orderTotal: 300, 
+lineItems: [
+  {unitPrice: 3, quantity: 7, productName: "hats"}, 
+  {unitPrice: 4, quantity: 8, productName: "mittens"}, 
+  {unitPrice: 5, quantity: 9, productName: "socks"}
+  ]
+})
+
+db.getCollection('orders').insert({
+orderDate: Date('Aug 07, 2001'), 
+orderTotal: 200, 
+lineItems: [
+  {unitPrice: 6, quantity: 10, productName: "boots"}, 
+  {unitPrice: 7, quantity: 11, productName: "gloves"}, 
+  {unitPrice: 8, quantity: 12, productName: "scarves"}
+  ]
+})
+
+db.getCollection('orders').insert({
+orderDate: Date('Feb 21, 2015'), 
+orderTotal: 100, 
+lineItems: [
+  {unitPrice: 9, quantity: 13, productName: "coats"}, 
+  {unitPrice: 10, quantity: 14, productName: "snowpants"}, 
+  {unitPrice: 11, quantity: 15, productName: "beer"}
+  ]
+})
+
+// 3. Find a single order document, any order document.
+db.getCollection('orders').find({orderTotal: 200.00})
+
+// 4. Find all orders and make them look pretty.
+db.getCollection({}).pretty()
+
+// 5. Find all orders with an orderDate that is prior to 1/1/2016.
+db.getCollection('orders').find({orderDate: {$lt: new Date("2016-01-01")}})
+
+// 6. Find all orders with an orderDate that is after 1/1/2016.
+db.getCollection('orders').find({orderDate: {$gt: new Date("2016-01-01")}})
+
+// 7. Find orders with lineItems that have a quantity that is less than 50, but greater than 5. HINT: Look at $and and dot notation.
+db.getCollection('orders').find({$and: [{'lineItems.qty': {$lt: 50}}, {'lineItems.qty': {$gt: 5}}]})
+
+// 8. Update one of your line items to 42.99. HINT: Look at dot notation
+db.getCollection('orders').updateOne({})
+
+
+
+
+// 9. Remove one of your orders.
+db.getCollection('orders').deleteOne({})
+
+//
